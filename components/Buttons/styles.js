@@ -24,9 +24,27 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     color: 'black'
   } ,
-  icons:{
+  icoWeight:{
+    width: 65,
+    height: 30,
     marginBottom: 15
   },
+  icoRun:{
+    width: 45,
+    height: 40,
+    marginBottom: 15
+  },
+  icoCross:{
+    width: 45,
+    height: 40,
+    marginBottom: 15
+  },
+  icoBike:{
+    width: 60,
+    height: 50,
+    marginBottom: 15
+  },
+
 
 });
 

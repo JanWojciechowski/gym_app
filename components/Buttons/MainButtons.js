@@ -1,25 +1,27 @@
 import React from 'react';
 import {View, Text, Pressable, Image} from 'react-native';
+
 import styles from './styles';
 
-const MainButtons = () => {
+const MainButtons = ({ navigation }) => {
 
 
   return (
     <View style={styles.container}>
       <Pressable
         style={styles.button}
-        onPress={() => console.warn('pressed')}
+        onPress={() =>  navigation.navigate('Weightlifting')}
       >
-        <Image style={styles.icons} source={require('../../assets/gym_ico/gym.png')}/>
+        
+        <Image style={styles.icoWeight} source={require('../../assets/gym_ico/gym.png')}/>
         <Text style={styles.text}>Weightlifting</Text>
       </Pressable>
 
       <Pressable
         style={styles.button}
-        onPress={() => console.warn('pressed')}
+        onPress={() => navigation.navigate('Running')}
       >
-         <Image style={styles.icons} source={require('../../assets/gym_ico/running.png')}/>
+         <Image style={styles.icoRun} source={require('../../assets/gym_ico/running.png')}/>
         <Text style={styles.text}>Running</Text>
       </Pressable>
 
@@ -27,7 +29,7 @@ const MainButtons = () => {
         style={styles.button}
         onPress={() => console.warn('pressed')}
       >
-         <Image style={styles.icons} source={require('../../assets/gym_ico/treadmill.png')}/>
+         <Image style={styles.icoCross} source={require('../../assets/gym_ico/treadmill.png')}/>
         <Text style={styles.text}>Cross Training</Text>
       </Pressable>
 
@@ -35,7 +37,7 @@ const MainButtons = () => {
         style={styles.button}
         onPress={() => console.warn('pressed')}
       >
-         <Image style={styles.icons} source={require('../../assets/gym_ico/bike.png')}/>
+         <Image style={styles.icoBike} source={require('../../assets/gym_ico/bike.png')}/>
         <Text style={styles.text}>Cycling</Text>
       </Pressable>
 

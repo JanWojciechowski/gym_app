@@ -1,28 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import MainView from './components/MainView/MainView'
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import HomeScreen from './components/HomeScreen/HomeScreen'
+import Weightlifting from './components/Weightlifting/Weightlifting';
+import Running from './components/Running/Running'
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
 
-     <MainView/>
-
-     <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="Home" component={HomeScreen}  />
+      <Stack.Screen name="Weightlifting" component={Weightlifting} />
+      <Stack.Screen name="Running" component={Running} />
+    </Stack.Navigator>
+  </NavigationContainer>
   );
 }
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-   
-    backgroundColor: '#fff',
-    alignItems: 'center', 
-    justifyContent: 'center',
-    
-  },
-});

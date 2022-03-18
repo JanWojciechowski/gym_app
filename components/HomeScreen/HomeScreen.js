@@ -1,11 +1,12 @@
 
-import { Text, View, ImageBackground } from 'react-native';
+import { Text, View, ImageBackground, Button } from 'react-native';
 import styles from './styles'
 import MainButtons from '../Buttons/MainButtons'
+
 const image = require('../../assets/backgroundImage.jpg');
 
 
-const MainView = () => {
+const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.mainContainer}>
       <ImageBackground source={image}  style={styles.image} blurRadius={1}/>
@@ -15,10 +16,10 @@ const MainView = () => {
             </Text>
        </View>
        
-        <MainButtons/>
-    
+        <MainButtons navigation = {navigation}/>
+  
     </View>
   );
 }
 
-export default MainView
+export default HomeScreen
