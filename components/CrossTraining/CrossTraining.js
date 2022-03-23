@@ -1,24 +1,23 @@
 
 import { StyleSheet, View, Text, SafeAreaView } from 'react-native';
 
-
-
-const Running = () => {
+const CrossTraining = () => {
   return (
     <SafeAreaView style={styles.container}>
-
-     <Text>Running vew </Text>
+   
+     <Text> CrossTraining view </Text>
     
     </SafeAreaView>
   );
 }
 
-export default Running
+export default CrossTraining
 
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  //  backgroundColor: 'red', 
     alignItems: 'center', 
     justifyContent: 'center',
     

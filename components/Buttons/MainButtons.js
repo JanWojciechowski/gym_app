@@ -2,8 +2,11 @@ import React from 'react';
 import {View, Text, Pressable, Image} from 'react-native';
 
 import styles from './styles';
+import { firebase } from '../../firebase/firebase';
 
 const MainButtons = ({ navigation }) => {
+
+  
 
 
   return (
@@ -27,7 +30,7 @@ const MainButtons = ({ navigation }) => {
 
       <Pressable
         style={styles.button}
-        onPress={() => console.warn('pressed')}
+        onPress={() => navigation.navigate("CrossTraining")}
       >
          <Image style={styles.icoCross} source={require('../../assets/gym_ico/treadmill.png')}/>
         <Text style={styles.text}>Cross Training</Text>
@@ -35,7 +38,7 @@ const MainButtons = ({ navigation }) => {
 
       <Pressable 
         style={styles.button}
-        onPress={() => console.warn('pressed')}
+        onPress={() => navigation.navigate('Cycling')}
       >
          <Image style={styles.icoBike} source={require('../../assets/gym_ico/bike.png')}/>
         <Text style={styles.text}>Cycling</Text>
