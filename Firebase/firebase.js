@@ -1,22 +1,17 @@
 
 import { initializeApp } from "firebase/app";
-import * as firebase from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import  {getFirestore } from 'firebase/firestore';
 
   const firebaseConfig = {
-    apiKey: "AIzaSyChJa8pQtRMD83Zy_WVJLbTwyesFc7vZw0",
-    authDomain: "my-corss-gym-app.firebaseapp.com",
-    projectId: "my-corss-gym-app",
-    storageBucket: "my-corss-gym-app.appspot.com",
-    messagingSenderId: "603871497161",
-    appId: "1:603871497161:web:784d4f905ca3e9980df618"
+    apiKey: "AIzaSyCTKj9J8c8zEcQDGyw-rf_sQbpx5ubYid0",
+  authDomain: "my-gym-app-e3afe.firebaseapp.com",
+  projectId: "my-gym-app-e3afe",
+  storageBucket: "my-gym-app-e3afe.appspot.com",
+  messagingSenderId: "855910743605",
+  appId: "1:855910743605:web:06738d95d6bf3b46ec3b7c"
   };
   
   
- // firebase.initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 
-
-   const app = firebase.initializeApp(firebaseConfig)
-   const db = getFirestore(app);
-
-export { db }
+export const db = getFirestore(app)

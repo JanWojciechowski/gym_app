@@ -7,7 +7,7 @@ import Weightlifting from './components/Weightlifting/Weightlifting';
 import Running from './components/Running/Running';
 import CrossTraining from './components/CrossTraining/CrossTraining';
 import Cycling from './components/Cycling/Cycling';
-import Chest from './components/Weightlifting/BodyParts/chest/Chest'
+import Chest from './components/Weightlifting/BodyParts/Chest/Chest'
 import Sztanga from './components/Weightlifting/BodyParts/Chest/exercises/Sztanga'
 
 const Stack = createNativeStackNavigator();

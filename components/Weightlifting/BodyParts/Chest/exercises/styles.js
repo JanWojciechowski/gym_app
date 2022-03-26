@@ -49,9 +49,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
       },
       inputsContainer:{
-         
           flexDirection: 'row',
           justifyContent:'space-around'
+
+      },
+      listStyle:{
+        color: 'black'
+        
       }
   
 
