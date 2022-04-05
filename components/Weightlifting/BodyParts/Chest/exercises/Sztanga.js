@@ -8,6 +8,7 @@ import {
   Pressable,
   ScrollView,
   ImageBackground,
+  Dimensions,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { db } from "../../../../../Firebase/firebase";
@@ -25,6 +26,15 @@ import {
   limit,
 } from "firebase/firestore";
 
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart
+} from "react-native-chart-kit";
+
 const image = require("../../../../../assets/backgroundImage.jpg");
 
 const Sztanga = () => {
@@ -33,6 +43,9 @@ const Sztanga = () => {
   const [repeat, setRepeat] = useState("");
   const [data, setData] = useState([]);
   const [newData, setNewRecord] = useState(false);
+
+  let chartLabel = [];
+  let czartDataset = []
 
   useEffect(() => {
     Read();
@@ -45,9 +58,13 @@ const Sztanga = () => {
   };
   const Create = () => {
     let current = new Date();
-    let date = `${current.getDate()}-${
+    let date = `${current.getDate()}/${
       current.getMonth() + 1
-    }-${current.getFullYear()}`;
+    }/${current.getFullYear()}`
+    let chartDate = `${current.getDate()}/${
+      current.getMonth() + 1
+    }`
+    ;
 
     if (first && last && repeat) {
       const docData = {
@@ -56,6 +73,7 @@ const Sztanga = () => {
         Repeat: Number(repeat),
         Data: date,
         Time: Date(date),
+        ChartDate: chartDate 
       };
       addDoc(collection(db, "wegithlifting_sztanga"), docData)
         .then(() => {
@@ -82,6 +100,7 @@ const Sztanga = () => {
         }));
         setData(myDoc);
         setNewRecord(false);
+    
       })
       .catch((error) => console.log(error.message));
   };
@@ -146,6 +165,8 @@ const Sztanga = () => {
         </View>
         <ScrollView>
           {data.map((item) => {
+              chartLabel.push(item.data.ChartDate)
+              czartDataset.push(item.data.Last)
             return (
               <View key={item.id} style={styles.listWrapper}>
                 <Text style={styles.firstRow}>{item.data.Data}</Text>
@@ -161,6 +182,47 @@ const Sztanga = () => {
           })}
         </ScrollView>
       </View>
+          
+      <View>
+  
+  <LineChart
+    data={{
+      labels: chartLabel,
+      datasets: [
+        {
+          data: czartDataset
+        }
+      ]
+    }}
+    width={Dimensions.get("window").width} // from react-native
+    height={220}
+    yAxisLabel=""
+    yAxisSuffix="kg"
+    yAxisInterval={1} // optional, defaults to 1
+    chartConfig={{
+      backgroundColor: "#e26a00",
+      backgroundGradientFrom: "rgba(12,116,118,0.9)",
+      backgroundGradientTo: "rgba(12,116,118,0.9)",
+      decimalPlaces: 0, // optional, defaults to 2dp
+      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+      style: {
+        borderRadius: 16
+      },
+      propsForDots: {
+        r: "6",
+        strokeWidth: "2",
+        stroke: "red"
+      }
+    }}
+    bezier
+    style={{
+      marginVertical: 8,
+      borderRadius: 16
+    }}
+  />
+</View>
+
     </SafeAreaView>
   );
 };

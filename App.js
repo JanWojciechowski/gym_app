@@ -23,8 +23,8 @@ import CurlBar from "./components/Weightlifting/BodyParts/Biceps/exercises/curlB
 import StanArmBend from "./components/Weightlifting/BodyParts/Biceps/exercises/armBend";
 import Prayer from "./components/Weightlifting/BodyParts/Biceps/exercises/prayer";
 import Triceps from "./components/Weightlifting/BodyParts/Triceps/Triceps";
-import Machine from "./components/Weightlifting/BodyParts/Triceps/exercieses/machine";
-import CurlBarTriceps from "./components/Weightlifting/BodyParts/Triceps/exercieses/curlBarTriceps";
+import Machine from "./components/Weightlifting/BodyParts/Triceps/exercieses/Machine";
+import CurlBarTriceps from "./components/Weightlifting/BodyParts/Triceps/exercieses/CurlBarTriceps";
 import Wioslo from "./components/CrossTraining/exercises/Wioslo";
 
 const Stack = createNativeStackNavigator();
