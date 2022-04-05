@@ -15,7 +15,6 @@ import styles from "./styles";
 import {
   setDoc,
   doc,
-  getDoc,
   deleteDoc,
   addDoc,
   collection,
@@ -27,7 +26,7 @@ import {
 
 const image = require("../../../../../assets/backgroundImage.jpg");
 
-const Sztanga = () => {
+const HantleSkos = () => {
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
   const [repeat, setRepeat] = useState("");
@@ -57,7 +56,7 @@ const Sztanga = () => {
         Data: date,
         Time: Date(date),
       };
-      addDoc(collection(db, "wegithlifting_sztanga"), docData)
+      addDoc(collection(db, "wegithlifting_hantle_skos"), docData)
         .then(() => {
           console.log("Document added");
           ClearText();
@@ -72,7 +71,7 @@ const Sztanga = () => {
   };
 
   const Read = () => {
-    const myCollection = collection(db, "wegithlifting_sztanga");
+    const myCollection = collection(db, "wegithlifting_hantle_skos");
     const q = query(myCollection, orderBy("Time", "desc"), limit(10));
     getDocs(q)
       .then((resp) => {
@@ -87,7 +86,7 @@ const Sztanga = () => {
   };
 
   const Delete = (id) => {
-    const docRef = doc(db, "wegithlifting_sztanga", id);
+    const docRef = doc(db, "wegithlifting_hantle_skos", id);
 
     deleteDoc(docRef)
       .then(() => console.log("Document deleted"))
@@ -142,7 +141,7 @@ const Sztanga = () => {
           <Text style={styles.tHead}>First </Text>
           <Text style={styles.tHead}>Last</Text>
           <Text style={styles.tHead}>Rep</Text>
-          <Text style={styles.tHead}>Delete</Text>
+          <Text style={styles.tHead}></Text>
         </View>
         <ScrollView>
           {data.map((item) => {
@@ -152,7 +151,6 @@ const Sztanga = () => {
                 <Text style={styles.row}>{item.data.First}</Text>
                 <Text style={styles.row}>{item.data.Last}</Text>
                 <Text style={styles.row}>{item.data.Repeat}</Text>
-
                 <Pressable style={styles.row} onPress={() => Delete(item.id)}>
                   <Text>❌</Text>
                 </Pressable>
@@ -165,4 +163,4 @@ const Sztanga = () => {
   );
 };
 
-export default Sztanga;
+export default HantleSkos;

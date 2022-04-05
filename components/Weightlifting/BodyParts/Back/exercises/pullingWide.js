@@ -15,7 +15,6 @@ import styles from "./styles";
 import {
   setDoc,
   doc,
-  getDoc,
   deleteDoc,
   addDoc,
   collection,
@@ -27,7 +26,7 @@ import {
 
 const image = require("../../../../../assets/backgroundImage.jpg");
 
-const Sztanga = () => {
+const PullingWide = () => {
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
   const [repeat, setRepeat] = useState("");
@@ -49,30 +48,26 @@ const Sztanga = () => {
       current.getMonth() + 1
     }-${current.getFullYear()}`;
 
-    if (first && last && repeat) {
-      const docData = {
-        First: Number(first),
-        Last: Number(last),
-        Repeat: Number(repeat),
-        Data: date,
-        Time: Date(date),
-      };
-      addDoc(collection(db, "wegithlifting_sztanga"), docData)
-        .then(() => {
-          console.log("Document added");
-          ClearText();
-          setNewRecord(true);
-        })
-        .catch(() => {
-          console.log(error);
-        });
-    } else {
-      alert("uzupełnij wszystkie pola");
-    }
+    const docData = {
+      First: Number(first),
+      Last: Number(last),
+      Repeat: Number(repeat),
+      Data: date,
+      Time: Date(date),
+    };
+    addDoc(collection(db, "Plecy_Przyciąganie_Szeroko"), docData)
+      .then(() => {
+        console.log("Document added");
+        ClearText();
+        setNewRecord(true);
+      })
+      .catch(() => {
+        console.log(error);
+      });
   };
 
   const Read = () => {
-    const myCollection = collection(db, "wegithlifting_sztanga");
+    const myCollection = collection(db, "Plecy_Przyciąganie_Szeroko");
     const q = query(myCollection, orderBy("Time", "desc"), limit(10));
     getDocs(q)
       .then((resp) => {
@@ -87,7 +82,7 @@ const Sztanga = () => {
   };
 
   const Delete = (id) => {
-    const docRef = doc(db, "wegithlifting_sztanga", id);
+    const docRef = doc(db, "Plecy_Przyciąganie_Szeroko", id);
 
     deleteDoc(docRef)
       .then(() => console.log("Document deleted"))
@@ -152,7 +147,6 @@ const Sztanga = () => {
                 <Text style={styles.row}>{item.data.First}</Text>
                 <Text style={styles.row}>{item.data.Last}</Text>
                 <Text style={styles.row}>{item.data.Repeat}</Text>
-
                 <Pressable style={styles.row} onPress={() => Delete(item.id)}>
                   <Text>❌</Text>
                 </Pressable>
@@ -165,4 +159,4 @@ const Sztanga = () => {
   );
 };
 
-export default Sztanga;
+export default PullingWide;

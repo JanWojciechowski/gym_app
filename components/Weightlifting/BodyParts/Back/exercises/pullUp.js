@@ -15,7 +15,6 @@ import styles from "./styles";
 import {
   setDoc,
   doc,
-  getDoc,
   deleteDoc,
   addDoc,
   collection,
@@ -27,9 +26,8 @@ import {
 
 const image = require("../../../../../assets/backgroundImage.jpg");
 
-const Sztanga = () => {
-  const [first, setFirst] = useState("");
-  const [last, setLast] = useState("");
+const PullUp = () => {
+  const [maxRep, setMax] = useState("");
   const [repeat, setRepeat] = useState("");
   const [data, setData] = useState([]);
   const [newData, setNewRecord] = useState(false);
@@ -39,8 +37,7 @@ const Sztanga = () => {
   }, [newData]);
 
   const ClearText = () => {
-    setFirst("");
-    setLast("");
+    setMax("");
     setRepeat("");
   };
   const Create = () => {
@@ -48,16 +45,14 @@ const Sztanga = () => {
     let date = `${current.getDate()}-${
       current.getMonth() + 1
     }-${current.getFullYear()}`;
-
-    if (first && last && repeat) {
+    if (maxRep && repeat) {
       const docData = {
-        First: Number(first),
-        Last: Number(last),
+        MaxRep: Number(maxRep),
         Repeat: Number(repeat),
         Data: date,
         Time: Date(date),
       };
-      addDoc(collection(db, "wegithlifting_sztanga"), docData)
+      addDoc(collection(db, "Plecy_Podciąganie"), docData)
         .then(() => {
           console.log("Document added");
           ClearText();
@@ -72,7 +67,7 @@ const Sztanga = () => {
   };
 
   const Read = () => {
-    const myCollection = collection(db, "wegithlifting_sztanga");
+    const myCollection = collection(db, "Plecy_Podciąganie");
     const q = query(myCollection, orderBy("Time", "desc"), limit(10));
     getDocs(q)
       .then((resp) => {
@@ -87,7 +82,7 @@ const Sztanga = () => {
   };
 
   const Delete = (id) => {
-    const docRef = doc(db, "wegithlifting_sztanga", id);
+    const docRef = doc(db, "Plecy_Podciąganie", id);
 
     deleteDoc(docRef)
       .then(() => console.log("Document deleted"))
@@ -100,22 +95,12 @@ const Sztanga = () => {
       <ImageBackground source={image} style={styles.image} blurRadius={1} />
       <View style={styles.inputsContainer}>
         <View style={styles.itemContainer}>
-          <Text style={styles.inputText}>Pierwsza seria</Text>
+          <Text style={styles.inputText}>Max Podciągnięć</Text>
           <TextInput
             style={styles.input}
-            placeholder="kg"
-            value={first}
-            onChangeText={(val) => setFirst(val)}
-            keyboardType="numeric"
-          />
-        </View>
-        <View style={styles.itemContainer}>
-          <Text style={styles.inputText}>Ostatnia seria</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="kg"
-            value={last}
-            onChangeText={(val) => setLast(val)}
+            placeholder="num"
+            value={maxRep}
+            onChangeText={(val) => setMax(val)}
             keyboardType="numeric"
           />
         </View>
@@ -139,20 +124,17 @@ const Sztanga = () => {
       <View style={styles.body}>
         <View style={styles.listWrapper}>
           <Text style={styles.tHeadFirst}>Data</Text>
-          <Text style={styles.tHead}>First </Text>
-          <Text style={styles.tHead}>Last</Text>
+          <Text style={styles.tHead}>MaxRep </Text>
           <Text style={styles.tHead}>Rep</Text>
-          <Text style={styles.tHead}>Delete</Text>
+          <Text style={styles.tHead}></Text>
         </View>
         <ScrollView>
           {data.map((item) => {
             return (
               <View key={item.id} style={styles.listWrapper}>
                 <Text style={styles.firstRow}>{item.data.Data}</Text>
-                <Text style={styles.row}>{item.data.First}</Text>
-                <Text style={styles.row}>{item.data.Last}</Text>
+                <Text style={styles.row}>{item.data.MaxRep}</Text>
                 <Text style={styles.row}>{item.data.Repeat}</Text>
-
                 <Pressable style={styles.row} onPress={() => Delete(item.id)}>
                   <Text>❌</Text>
                 </Pressable>
@@ -165,4 +147,4 @@ const Sztanga = () => {
   );
 };
 
-export default Sztanga;
+export default PullUp;

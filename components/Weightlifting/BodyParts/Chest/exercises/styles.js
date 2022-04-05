@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
       },
       input:{
         margin: 10,
-        width: 100,
+        width: 90,
         height: 50,
         textAlign: 'center',
         borderRadius: 10,
@@ -47,14 +47,14 @@ const styles = StyleSheet.create({
       },
       inputText:{
         marginTop: 20,
-        color: 'black',
+        color: 'white',
         fontSize: 16,
         fontWeight: '600',
       
       },
       button: {
         height: 60,
-        width: 120,
+        width: 100,
         margin: 10,
         borderRadius: 7,
         justifyContent: 'center',
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
       },
    
 
-      // tableC View
+      // table View
 
       body:{
         flex: 1,
@@ -76,24 +76,62 @@ const styles = StyleSheet.create({
       listWrapper: { 
         flexDirection: 'row',
         flexWrap: 'wrap',
-        borderBottomWidth: 0.5
+        borderBottomWidth: 0.5,
+        borderBottomColor: 'white',
+        
       },
       row:{
         flex: 1,
-        fontSize: 18,
-        paddingHorizontal: 2,
-        paddingVertical: 7,
-        textAlign: 'center'
+        fontSize: 17,
+        paddingHorizontal: 0,
+        paddingVertical: 5,
+        textAlign: 'center',
+        color: 'white',
+        backgroundColor: 'rgba(16, 110, 111,0.8)',
+        borderRadius: 5,
+        borderWidth: 0.5,
+        borderColor: 'white',
+      }, 
+      firstRow:{
+        flex: 1,
+        fontSize: 16,
+        paddingHorizontal: 1,
+        paddingVertical: 5,
+        textAlign: 'center',
+        color: 'black',
+        fontWeight: 'bold',
+        flexGrow: 2,
+        backgroundColor: 'rgba(16, 110, 111,0.8)',
+        borderRightWidth: 0.5,
+        borderRightColor: 'white',
+        borderBottomRightRadius: 15,
+        borderTopLeftRadius: 15,
+        
       },
+
       tHead:{
         flex: 1,
-        fontSize: 17,
+        fontSize: 16,
         fontWeight: 'bold',
         paddingHorizontal: 2,
         paddingVertical: 7,
-        textAlign: 'center'
+        textAlign: 'center',
+        color: 'black',
+        backgroundColor: 'rgba(255, 255, 255, 0.6)'
+      },
+      tHeadFirst:{
+        flex: 1,
+        fontSize: 16,
+        fontWeight: 'bold',
+        paddingHorizontal: 2,
+        paddingVertical: 7,
+        textAlign: 'center',
+        color: 'black',
+        flexGrow: 2,
+        backgroundColor: 'rgba(255, 255, 255, 0.6)'
       }
     
+      
 });
 
 export default styles;

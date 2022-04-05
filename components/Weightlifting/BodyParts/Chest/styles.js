@@ -25,19 +25,19 @@ const styles = StyleSheet.create({
         position: 'absolute'
       },
       text: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '500',
         textTransform: 'uppercase',
         color: 'black'
       } ,
-      icoSquat: {
-        width: 65,
-        height: 30,
-        marginBottom: 15,
-        position:'absolute',
-        left: 5,
-        top: 10
+      subText:{
+        fontSize: 14,
+        fontWeight: '500',
+        color: 'black'
       },
+
+    
+
     
 
 });
