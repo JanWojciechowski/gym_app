@@ -32,7 +32,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Bieganie">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Ciężary" component={Weightlifting} />
         <Stack.Screen name="Bieganie" component={Running} />
