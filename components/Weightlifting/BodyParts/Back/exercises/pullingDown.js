@@ -5,6 +5,8 @@ import { db } from '../../../../../Firebase/firebase'
 import styles from './styles'
 import { setDoc, doc, deleteDoc, addDoc, collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
 
+import MainChart from '../../../../Weightlifting/MainChart'
+
 const image = require('../../../../../assets/backgroundImage.jpg');
 
 
@@ -15,7 +17,10 @@ const PullingDown = () => {
     const [repeat, setRepeat] = useState('');
     const [data, setData] = useState([]);
     const [newData, setNewRecord] = useState(false)
-    
+
+    let chartLabel = [];
+    let czartDataset = []
+
     useEffect(() => {
       Read();
     }, [newData]);
@@ -27,18 +32,23 @@ const PullingDown = () => {
 
     }
     const Create = () => {
-
-      let current = new Date()
-      let date = `${current.getDate()}-${current.getMonth()+1}-${current.getFullYear()}`;
-
+      if(first && last && repeat ){
+      let current = new Date();
+      let date = `${current.getDate()}/${
+        current.getMonth() + 1
+      }/${current.getFullYear()}`
+      let chartDate = `${current.getDate()}/${
+        current.getMonth() + 1
+      }`
+      ;
         const docData = {
 
-           "First" : Number(first),
-           "Last": Number(last),
-           "Repeat": Number(repeat),
-           "Data": date,
-           'Time': Date(date)
-          
+           First : Number(first),
+           Last: Number(last),
+           Repeat: Number(repeat),
+           Data: date,
+           Time: Date(date),
+           ChartDate: chartDate 
         }
         addDoc(collection(db, "Plecy_Przyciąganie_Dolny"),docData)
           .then(()=>{
@@ -49,7 +59,7 @@ const PullingDown = () => {
           .catch(()=>{
             console.log(error);
           })
-        
+        }else {alert('uzupełnij wszystkie pola')}
          
       }
     
@@ -133,6 +143,8 @@ const PullingDown = () => {
            </View>
         <ScrollView>
         {data.map((item)=> {
+          chartLabel.push(item.data.ChartDate)
+          czartDataset.push(parseInt(item.data.Last))
           return(
             <View key={item.id} style={styles.listWrapper} >
              
@@ -149,6 +161,8 @@ const PullingDown = () => {
          </ScrollView>
       
     </View>
+  
+  <MainChart chartLabel={chartLabel} czartDataset={czartDataset}/>
   
      
     </SafeAreaView>

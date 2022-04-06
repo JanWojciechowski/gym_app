@@ -23,6 +23,7 @@ import {
   orderBy,
   limit,
 } from "firebase/firestore";
+import MainChart from '../../../../Weightlifting/MainChart'
 
 const image = require("../../../../../assets/backgroundImage.jpg");
 
@@ -33,6 +34,10 @@ const PullingWide = () => {
   const [data, setData] = useState([]);
   const [newData, setNewRecord] = useState(false);
 
+
+  let chartLabel = [];
+  let czartDataset = []
+
   useEffect(() => {
     Read();
   }, [newData]);
@@ -42,11 +47,17 @@ const PullingWide = () => {
     setLast("");
     setRepeat("");
   };
+
   const Create = () => {
+    if(first && last && repeat ){
     let current = new Date();
-    let date = `${current.getDate()}-${
+    let date = `${current.getDate()}/${
       current.getMonth() + 1
-    }-${current.getFullYear()}`;
+    }/${current.getFullYear()}`
+    let chartDate = `${current.getDate()}/${
+      current.getMonth() + 1
+    }`
+    ;
 
     const docData = {
       First: Number(first),
@@ -54,6 +65,7 @@ const PullingWide = () => {
       Repeat: Number(repeat),
       Data: date,
       Time: Date(date),
+      ChartDate: chartDate 
     };
     addDoc(collection(db, "Plecy_Przyciąganie_Szeroko"), docData)
       .then(() => {
@@ -64,6 +76,7 @@ const PullingWide = () => {
       .catch(() => {
         console.log(error);
       });
+    }else {alert('uzupełnij wszystkie pola')}
   };
 
   const Read = () => {
@@ -141,6 +154,8 @@ const PullingWide = () => {
         </View>
         <ScrollView>
           {data.map((item) => {
+            chartLabel.push(item.data.ChartDate)
+            czartDataset.push(parseInt(item.data.Last))
             return (
               <View key={item.id} style={styles.listWrapper}>
                 <Text style={styles.firstRow}>{item.data.Data}</Text>
@@ -155,6 +170,8 @@ const PullingWide = () => {
           })}
         </ScrollView>
       </View>
+      <MainChart chartLabel={chartLabel} czartDataset={czartDataset}/>
+  
     </SafeAreaView>
   );
 };

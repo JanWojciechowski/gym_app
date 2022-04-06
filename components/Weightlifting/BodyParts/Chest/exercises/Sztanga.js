@@ -26,14 +26,7 @@ import {
   limit,
 } from "firebase/firestore";
 
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
-} from "react-native-chart-kit";
+import MainChart from '../../../../Weightlifting/MainChart'
 
 const image = require("../../../../../assets/backgroundImage.jpg");
 
@@ -49,6 +42,7 @@ const Sztanga = () => {
 
   useEffect(() => {
     Read();
+    
   }, [newData]);
 
   const ClearText = () => {
@@ -100,7 +94,8 @@ const Sztanga = () => {
         }));
         setData(myDoc);
         setNewRecord(false);
-    
+     
+        
       })
       .catch((error) => console.log(error.message));
   };
@@ -166,7 +161,7 @@ const Sztanga = () => {
         <ScrollView>
           {data.map((item) => {
               chartLabel.push(item.data.ChartDate)
-              czartDataset.push(item.data.Last)
+              czartDataset.push(parseInt(item.data.Last))
             return (
               <View key={item.id} style={styles.listWrapper}>
                 <Text style={styles.firstRow}>{item.data.Data}</Text>
@@ -183,45 +178,8 @@ const Sztanga = () => {
         </ScrollView>
       </View>
           
-      <View>
+      <MainChart chartLabel={chartLabel} czartDataset={czartDataset}/>
   
-  <LineChart
-    data={{
-      labels: chartLabel,
-      datasets: [
-        {
-          data: czartDataset
-        }
-      ]
-    }}
-    width={Dimensions.get("window").width} // from react-native
-    height={220}
-    yAxisLabel=""
-    yAxisSuffix="kg"
-    yAxisInterval={1} // optional, defaults to 1
-    chartConfig={{
-      backgroundColor: "#e26a00",
-      backgroundGradientFrom: "rgba(12,116,118,0.9)",
-      backgroundGradientTo: "rgba(12,116,118,0.9)",
-      decimalPlaces: 0, // optional, defaults to 2dp
-      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-      style: {
-        borderRadius: 16
-      },
-      propsForDots: {
-        r: "6",
-        strokeWidth: "2",
-        stroke: "red"
-      }
-    }}
-    bezier
-    style={{
-      marginVertical: 8,
-      borderRadius: 16
-    }}
-  />
-</View>
 
     </SafeAreaView>
   );

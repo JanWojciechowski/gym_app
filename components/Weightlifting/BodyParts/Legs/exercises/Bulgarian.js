@@ -7,6 +7,7 @@ import { setDoc, doc, deleteDoc, addDoc, collection, getDocs, query, orderBy, li
 
 const image = require('../../../../../assets/backgroundImage.jpg');
 
+import MainChart from '../../../../Weightlifting/MainChart'
 
 const Bulgarian = () => {
 
@@ -16,6 +17,9 @@ const Bulgarian = () => {
     const [data, setData] = useState([]);
     const [newData, setNewRecord] = useState(false)
     
+    let chartLabel = [];
+    let czartDataset = []
+
     useEffect(() => {
       Read();
     }, [newData]);
@@ -28,16 +32,22 @@ const Bulgarian = () => {
     }
     const Create = () => {
       if(first && last && repeat ){
-      let current = new Date()
-      let date = `${current.getDate()}-${current.getMonth()+1}-${current.getFullYear()}`;
-
+      let current = new Date();
+      let date = `${current.getDate()}/${
+        current.getMonth() + 1
+      }/${current.getFullYear()}`
+      let chartDate = `${current.getDate()}/${
+        current.getMonth() + 1
+      }`
+      ;
         const docData = {
 
-           "First" : Number(first),
-           "Last": Number(last),
-           "Repeat": Number(repeat),
-           "Data": date,
-           'Time': Date(date)
+          First : Number(first),
+          Last: Number(last),
+          Repeat: Number(repeat),
+          Data: date,
+          Time: Date(date),
+          ChartDate: chartDate 
           
         }
         addDoc(collection(db, "przysiady_bułgarskie"),docData)
@@ -133,6 +143,8 @@ const Bulgarian = () => {
            </View>
         <ScrollView>
         {data.map((item)=> {
+          chartLabel.push(item.data.ChartDate)
+          czartDataset.push(parseInt(item.data.Last))
           return(
             <View key={item.id} style={styles.listWrapper} >
              
@@ -150,7 +162,8 @@ const Bulgarian = () => {
       
     </View>
   
-     
+    <MainChart chartLabel={chartLabel} czartDataset={czartDataset}/>
+  
     </SafeAreaView>
   );
 }

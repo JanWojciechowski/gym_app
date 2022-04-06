@@ -23,15 +23,19 @@ import {
   orderBy,
   limit,
 } from "firebase/firestore";
+import MainChart from '../../../../Weightlifting/MainChart'
 
 const image = require("../../../../../assets/backgroundImage.jpg");
 
-const StanArmBend = () => {
+const CurlBar = () => {
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
   const [repeat, setRepeat] = useState("");
   const [data, setData] = useState([]);
   const [newData, setNewRecord] = useState(false);
+
+  let chartLabel = [];
+  let czartDataset = []
 
   useEffect(() => {
     Read();
@@ -42,11 +46,15 @@ const StanArmBend = () => {
     setLast("");
     setRepeat("");
   };
-  const Create = () => {
-    let current = new Date();
-    let date = `${current.getDate()}-${
-      current.getMonth() + 1
-    }-${current.getFullYear()}`;
+   const Create = () => {
+      let current = new Date();
+      let date = `${current.getDate()}/${
+        current.getMonth() + 1
+      }/${current.getFullYear()}`
+      let chartDate = `${current.getDate()}/${
+        current.getMonth() + 1
+      }`
+      ;
     if (first && last && repeat) {
       const docData = {
         First: Number(first),
@@ -54,6 +62,7 @@ const StanArmBend = () => {
         Repeat: Number(repeat),
         Data: date,
         Time: Date(date),
+        ChartDate: chartDate 
       };
       addDoc(collection(db, "wegithlifting_biceps_skos"), docData)
         .then(() => {
@@ -144,6 +153,8 @@ const StanArmBend = () => {
         </View>
         <ScrollView>
           {data.map((item) => {
+             chartLabel.push(item.data.ChartDate)
+             czartDataset.push(parseInt(item.data.Last))
             return (
               <View key={item.id} style={styles.listWrapper}>
                 <Text style={styles.firstRow}>{item.data.Data}</Text>
@@ -158,8 +169,10 @@ const StanArmBend = () => {
           })}
         </ScrollView>
       </View>
+      <MainChart chartLabel={chartLabel} czartDataset={czartDataset}/>
+  
     </SafeAreaView>
   );
 };
 
-export default StanArmBend;
+export default CurlBar;

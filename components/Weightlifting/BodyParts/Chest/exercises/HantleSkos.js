@@ -24,6 +24,8 @@ import {
   limit,
 } from "firebase/firestore";
 
+import MainChart from '../../../../Weightlifting/MainChart'
+
 const image = require("../../../../../assets/backgroundImage.jpg");
 
 const HantleSkos = () => {
@@ -33,6 +35,9 @@ const HantleSkos = () => {
   const [data, setData] = useState([]);
   const [newData, setNewRecord] = useState(false);
 
+  let chartLabel = [];
+    let czartDataset = []
+    
   useEffect(() => {
     Read();
   }, [newData]);
@@ -44,9 +49,13 @@ const HantleSkos = () => {
   };
   const Create = () => {
     let current = new Date();
-    let date = `${current.getDate()}-${
+    let date = `${current.getDate()}/${
       current.getMonth() + 1
-    }-${current.getFullYear()}`;
+    }/${current.getFullYear()}`
+    let chartDate = `${current.getDate()}/${
+      current.getMonth() + 1
+    }`
+    ;
 
     if (first && last && repeat) {
       const docData = {
@@ -55,6 +64,7 @@ const HantleSkos = () => {
         Repeat: Number(repeat),
         Data: date,
         Time: Date(date),
+        ChartDate: chartDate 
       };
       addDoc(collection(db, "wegithlifting_hantle_skos"), docData)
         .then(() => {
@@ -145,6 +155,8 @@ const HantleSkos = () => {
         </View>
         <ScrollView>
           {data.map((item) => {
+             chartLabel.push(item.data.ChartDate)
+             czartDataset.push(parseInt(item.data.Last))
             return (
               <View key={item.id} style={styles.listWrapper}>
                 <Text style={styles.firstRow}>{item.data.Data}</Text>
@@ -159,6 +171,8 @@ const HantleSkos = () => {
           })}
         </ScrollView>
       </View>
+      <MainChart chartLabel={chartLabel} czartDataset={czartDataset}/>
+  
     </SafeAreaView>
   );
 };

@@ -24,6 +24,16 @@ import {
     limit,
   } from "firebase/firestore";
   
+  import {
+    LineChart,
+    BarChart,
+    PieChart,
+    ProgressChart,
+    ContributionGraph,
+    StackedBarChart
+  } from "react-native-chart-kit";
+  
+
   const image = require("../../../assets/backgroundImage.jpg");
   
   const Wioslo = () => {
@@ -33,6 +43,9 @@ import {
     const [data, setData] = useState([]);
     const [newData, setNewRecord] = useState(false);
   
+    let chartLabel = [];
+    let czartDataset = []
+
     useEffect(() => {
       Read();
     }, [newData]);
@@ -44,15 +57,20 @@ import {
     };
     const Create = () => {
       let current = new Date();
-      let date = `${current.getDate()}-${
+      let date = `${current.getDate()}/${
         current.getMonth() + 1
-      }-${current.getFullYear()}`;
+      }/${current.getFullYear()}`
+      let chartDate = `${current.getDate()}/${
+        current.getMonth() + 1
+      }`
+      ;
       if (distance && time) {
         const docData = {
           Dystans: Number(distance),
           Czas: (time),
           Data: date,
           Time: Date(date),
+          ChartDate: chartDate 
         };
         addDoc(collection(db, "cross_wioslo"), docData)
           .then(() => {
@@ -133,6 +151,8 @@ import {
           </View>
           <ScrollView>
             {data.map((item) => {
+                    chartLabel.push(item.data.ChartDate)
+                    czartDataset.push(parseInt(item.data.Last))
               return (
                 <View key={item.id} style={styles.listWrapper}>
                   <Text style={styles.firstRow}>{item.data.Data}</Text>
@@ -147,6 +167,7 @@ import {
             })}
           </ScrollView>
         </View>
+        
       </SafeAreaView>
     );
   };
